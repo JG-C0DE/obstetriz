@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObstetricaPro | Sistema Integral de Gestión</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Pro -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+     <!-- Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@200;300;400;500;600;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Chart.js para visualizaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FullCalendar CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/es.global.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/main.min.css" rel="stylesheet">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="../../assets/estilos.css">
+    </head>
+</head>
+<body>
+   
+<!-- Sidebar -->
+<div class="sidebar">
+    
+    <nav class="sidebar-nav">
+        <ul class="nav flex-column">
+            <li class="nav-section">
+                <span class="section-title">Principal</span>
+                <li class="nav-item">
+                    <a class="nav-link " href="../../index.html"><i class="fas fa-home"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionCitas">
+                        <i class="fas fa-calendar-check"></i> Gestión de Citas
+                        <i class="fas fa-chevron-down ml-auto"></i>
+                    </a>
+                    <div id="gestionCitas" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/citas/agendar-citas.html">
+                                    <i class="fa-solid fa-caret-right"></i> Crear Cita
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/citas/lista-citas.html">
+                                    <i class="fa-solid fa-caret-right"></i> Listado de Citas
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionHistorial">
+                        <i class="fas fa-file-medical"></i> Historial Médico
+                        <i class="fas fa-chevron-down ml-auto"></i>
+                    </a>
+                    <div id="gestionHistorial" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/historial-paciente/historial.html">
+                                    <i class="fa-solid fa-caret-right"></i> Crear Historial
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/historial-paciente/lista-historial.html">
+                                    <i class="fa-solid fa-caret-right"></i> Listado de Historiales
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPacientes">
+                        <i class="fas fa-users"></i> Gestión Pacientes
+                        <i class="fas fa-chevron-down ml-auto"></i>
+                    </a>
+                    <div id="gestionPacientes" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/pacientes/agregar-pacientes.html">
+                                    <i class="fa-solid fa-caret-right"></i> Agregar Paciente
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/pacientes/lista-clientes.html">
+                                    <i class="fa-solid fa-caret-right"></i> Listado de Pacientes
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </li>
+            <li class="nav-section">
+                <span class="section-title">Opciones</span>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-cogs"></i> Configuración</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </li>
+            </li>
+        </ul>
+    </nav>
+    
+        
+    <div class="sidebar-footer">
+        <a href="#">© 2024 ObstetricaPro</a>
+    </div>
+</div>
+
+    <!-- Header -->
+    <header class="header">
+        <i class="fas fa-bars hamburger" onclick="toggleSidebar()"></i>
+        <div class="header-logo">
+            <img src="../../img/logoobtetricia (1).png" width="60" alt="">
+            <div>
+                <span class="header-text">De Mujer A Mujer</span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center w-100">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="search" class="search-input" placeholder="Buscar pacientes, citas, historiales...">
+            </div>
+            <div class="quick-action ms-2">
+                <a href="../../Interfaz/pacientes/agregar-pacientes.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoPacienteModal">
+                    <i class="fas fa-plus-circle"></i> Nuevo Paciente
+                </a>
+            </div>
+            
+            <div class="quick-action ms-2">
+                <a href="../../Interfaz/citas/agendar-citas.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaCitaModal">
+                    <i class="fas fa-plus-circle"></i> Nueva Cita
+                </a>
+            </div>
+            
+            <div class="quick-action ms-2">
+                <a href="../../Interfaz/historial-paciente/historial.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoHistorialModal">
+                    <i class="fas fa-plus-circle"></i> Nuevo Historial
+                </a>
+            </div>
+           
+            <div class="header-actions d-flex align-items-center">
+                <div class="notifications me-3 position-relative">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="https://static.vecteezy.com/system/resources/previews/009/267/561/non_2x/user-icon-design-free-png.png" width="50" class="rounded-circle" alt="Usuario">
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    
+ 
+    <main class="main-content">
+        <div class="container-fluid ">
+            <div class="card dashboard-card-advanced no-hover ">
+                <div style=" border: 1px solid rgb(244, 244, 244) !important; " class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-file-medical"></i> Historial Médico Completo - María González
+                    </h4>
+                    <div>
+                        <button class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-print"></i> Imprimir Historial
+                        </button>
+                        <button class="btn btn-outline-secondary ">
+                            <i class="fas fa-download"></i> Exportar PDF
+                        </button>
+                    </div>
+                </div>
+                <div style=" border: 1px solid rgb(244, 244, 244) !important; " class="card-body">
+                    <!-- Información de Fecha del Historial -->
+<div class="row ">
+    <div class="col-12">
+        <div style=" border: 1px solid rgb(192, 192, 192) !important; " class="alert dashboard-card-advanced no-hover no-shadow" >
+            <h6 class="m-0">
+                <i class="fas fa-calendar-alt"></i> Fecha de Creación del Historial: 17 de Diciembre de 2024
+                <span class="float-end">
+                    <i class="fas fa-user-md"></i> Médico Responsable: Dra. Ana Rodríguez
+                </span>
+            </h6>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Formulario de Datos del Paciente -->
+<div style=" border: 1px solid rgb(192, 192, 192) !important; "  class="card dashboard-card-advanced no-hover no-shadow  mb-4">
+    <!-- Card Header -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title m-0"><i class="fas fa-user"></i> Datos del Paciente</h5>
+       
+    </div>
+
+    <!-- Card Body con Formulario -->
+    <div class="card-body">
+        <form>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="apellido" class="form-label">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" value="González Pérez">
+                </div>
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" value="María">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="cedula" class="form-label">Cédula:</label>
+                    <input type="text" class="form-control" id="cedula" value="1-1234-5678">
+                </div>
+                <div class="col-md-6">
+                    <label for="edad" class="form-label">Edad:</label>
+                    <input type="number" class="form-control" id="edad" value="34">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="direccion" class="form-label">Dirección:</label>
+                    <input type="text" class="form-control" id="direccion" value="San José, Costa Rica">
+                </div>
+                <div class="col-md-6">
+                    <label for="telefono" class="form-label">Teléfono Celular:</label>
+                    <input type="text" class="form-control" id="telefono" value="+506 8888-7777">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="instruccion" class="form-label">Instrucción:</label>
+                    <input type="text" class="form-control" id="instruccion" value="Ingeniera">
+                </div>
+                <div class="col-md-6">
+                    <label for="tipo-sangre" class="form-label">Tipo de Sangre:</label>
+                    <input type="text" class="form-control" id="tipo-sangre" value="O+">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    
+                  <!-- Antecedentes Patológicos -->
+<div style=" border: 1px solid rgb(192, 192, 192) !important; " class="card dashboard-card-advanced no-hover no-shadow  mb-4">
+    <!-- Card Header -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title m-0"><i class="fas fa-notes-medical"></i> Antecedentes Patológicos</h5>
+        
+    </div>
+
+    <!-- Card Body con Formulario -->
+    <div class="card-body">
+        <form>
+            <!-- Antecedentes Personales -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="personales" class="form-label">Antecedentes Personales:</label>
+                    <input type="text" class="form-control" id="personales" value="Hipertensión controlada">
+                </div>
+                <div class="col-md-6">
+                    <label for="quirurgicos" class="form-label">Antecedentes Quirúrgicos:</label>
+                    <input type="text" class="form-control" id="quirurgicos" value="Apendicectomía en 2015">
+                </div>
+            </div>
+
+            <!-- Antecedentes Alergias y Otros -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="alergias" class="form-label">Alergias:</label>
+                    <input type="text" class="form-control" id="alergias" value="Penicilina">
+                </div>
+                <div class="col-md-6">
+                    <label for="otros" class="form-label">Otros Antecedentes:</label>
+                    <input type="text" class="form-control" id="otros" value="Sin otros antecedentes relevantes">
+                </div>
+            </div>
+
+            <!-- Antecedentes Familiares -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="familiares" class="form-label">Antecedentes Familiares:</label>
+                    <input type="text" class="form-control" id="familiares" value="Madre con diabetes tipo 2">
+                </div>
+                <div class="col-md-6">
+                    <label for="otras-familiares" class="form-label">Otros Familiares:</label>
+                    <input type="text" class="form-control" id="otras-familiares" value="Padre con hipertensión">
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="row">
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    
+                  <!-- Antecedentes Gineco-Obstétricos -->
+<div style=" border: 1px solid rgb(192, 192, 192) !important; " class="card dashboard-card-advanced no-hover no-shadow  mb-4">
+    <!-- Card Header -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title"><i class="fas fa-female"></i> Antecedentes Gineco-Obstétricos</h5>
+       
+    </div>
+
+    <!-- Card Body con Formulario -->
+    <div class="card-body">
+        <form>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="menarquia" class="form-label">Menarquía:</label>
+                    <input type="number" class="form-control" id="menarquia" value="12">
+                </div>
+                <div class="col-md-3">
+                    <label for="ciclos" class="form-label">Ciclos:</label>
+                    <input type="text" class="form-control" id="ciclos" value="Regular">
+                </div>
+                <div class="col-md-3">
+                    <label for="ivsa" class="form-label">IVSA:</label>
+                    <input type="number" class="form-control" id="ivsa" value="18">
+                </div>
+                <div class="col-md-3">
+                    <label for="parejas-sexuales" class="form-label"># Parejas Sexuales:</label>
+                    <input type="number" class="form-control" id="parejas-sexuales" value="2">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-1">
+                    <label for="g" class="form-label">G:</label>
+                    <input type="number" class="form-control" id="g" value="2">
+                </div>
+                <div class="col-md-1">
+                    <label for="p" class="form-label">P:</label>
+                    <input type="number" class="form-control" id="p" value="2">
+                </div>
+                <div class="col-md-1">
+                    <label for="c" class="form-label">C:</label>
+                    <input type="number" class="form-control" id="c" value="0">
+                </div>
+                <div class="col-md-1">
+                    <label for="a" class="form-label">A:</label>
+                    <input type="number" class="form-control" id="a" value="0">
+                </div>
+                <div class="col-md-1">
+                    <label for="e" class="form-label">E:</label>
+                    <input type="number" class="form-control" id="e" value="0">
+                </div>
+                <div class="col-md-1">
+                    <label for="m" class="form-label">M:</label>
+                    <input type="number" class="form-control" id="m" value="0">
+                </div>
+                <div class="col-md-1">
+                    <label for="o" class="form-label">O:</label>
+                    <input type="number" class="form-control" id="o" value="0">
+                </div>
+                <div class="col-md-2">
+                    <label for="hv" class="form-label">HV:</label>
+                    <input type="number" class="form-control" id="hv" value="2">
+                </div>
+                <div class="col-md-2">
+                    <label for="hm" class="form-label">HM:</label>
+                    <input type="number" class="form-control" id="hm" value="0">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="ultima-pareja" class="form-label">Última Pareja:</label>
+                    <input type="date" class="form-control" id="ultima-pareja" value="2024-12-15">
+                </div>
+                <div class="col-md-3">
+                    <label for="ultima-menstruacion" class="form-label">Última Menstruación:</label>
+                    <input type="date" class="form-control" id="ultima-menstruacion" value="2024-12-10">
+                </div>
+                <div class="col-md-3">
+                    <label for="eg-fecha-um" class="form-label">EG por Fecha UM:</label>
+                    <input type="text" class="form-control" id="eg-fecha-um" value="6 semanas">
+                </div>
+                <div class="col-md-3">
+                    <label for="eg-eco" class="form-label">EG por ECO:</label>
+                    <input type="text" class="form-control" id="eg-eco" value="7 semanas">
+                </div>
+            </div>
+
+            <!-- Sección para agregar Ecografía -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="ecografia" class="form-label">Ecografía:</label>
+                    <input type="text" class="form-control" id="ecografia" value="Normal">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="metodo-anticonceptivo" class="form-label">Método Anticonceptivo:</label>
+                    <input type="text" class="form-control" id="metodo-anticonceptivo" value="DIU">
+                </div>
+                <div class="col-md-6">
+                    <label for="ultimo-papanicolau" class="form-label">Último Papanicolau:</label>
+                    <input type="date" class="form-control" id="ultimo-papanicolau" value="2024-06-15">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    
+  <!-- Signos Vitales -->
+<div style=" border: 1px solid rgb(192, 192, 192) !important; " class="card dashboard-card-advanced no-hover no-shadow mb-4">
+    <!-- Card Header -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title m-0"><i class="fas fa-heartbeat"></i> Signos Vitales</h5>
+        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoSignoVitalModal">
+            <i class="fas fa-plus"></i> Agregar Nuevo Registro
+        </button>
+    </div>
+
+    <!-- Card Body con Tabla -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Talla (cm)</th>
+                        <th>Peso (kg)</th>
+                        <th>IMC</th>
+                        <th>Tensión Arterial</th>
+                        <th>Frecuencia Cardíaca (bpm)</th>
+                        <th>Temperatura (°C)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>17/12/2024</td>
+                        <td>165</td>
+                        <td>62</td>
+                        <td>22.8</td>
+                        <td>120/80 mmHg</td>
+                        <td>72</td>
+                        <td>36.5</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Nuevo Signo Vital -->
+<div class="modal fade" id="nuevoSignoVitalModal" tabindex="-1" aria-labelledby="nuevoSignoVitalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nuevoSignoVitalModalLabel"><i class="fas fa-heartbeat"></i> Nuevo Registro de Signos Vitales</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="fechaModal" class="form-label">Fecha:</label>
+                            <input type="date" class="form-control" id="fechaModal">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tallaModal" class="form-label">Talla (cm):</label>
+                            <input type="number" class="form-control" id="tallaModal" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="pesoModal" class="form-label">Peso (kg):</label>
+                            <input type="number" class="form-control" id="pesoModal" step="0.1">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="imcModal" class="form-label">IMC:</label>
+                            <input type="number" class="form-control" id="imcModal" step="0.1" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="presionModal" class="form-label">Tensión Arterial:</label>
+                            <input type="text" class="form-control" id="presionModal">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="frecuenciaModal" class="form-label">Frecuencia Cardíaca (bpm):</label>
+                            <input type="number" class="form-control" id="frecuenciaModal" step="1">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="temperaturaModal" class="form-label">Temperatura (°C):</label>
+                            <input type="number" class="form-control" id="temperaturaModal" step="0.1">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar Registro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+                    <!-- Seguimiento Médico -->
+                    <div style=" border: 1px solid rgb(192, 192, 192) !important; " class="card dashboard-card-advanced no-hover no-shadow ">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title"><i class="fas fa-file-medical-alt"></i> Seguimiento Médico</h5>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoSeguimientoModal">
+                                <i class="fas fa-plus"></i> Agregar Seguimiento
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>
+                                            <th>Evolución</th>
+                                            <th>Prescripción</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>17/12/2024</td>
+                                            <td>10:30 AM</td>
+                                            <td>Consulta de control prenatal, paciente estable</td>
+                                            <td>Ácido Fólico 1x día</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-2">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Nuevo Seguimiento -->
+        <div class="modal fade" id="nuevoSeguimientoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fas fa-file-medical-alt"></i> Nuevo Seguimiento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Fecha</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Hora</label>
+                                    <input type="time" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Médico</label>
+                                    <input type="text" class="form-control" value="Dra. Ana Rodríguez" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Evolución</label>
+                                    <textarea class="form-control" rows="4" placeholder="Descripción de la evolución"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Prescripción</label>
+                                    <textarea class="form-control" rows="4" placeholder="Medicamentos y tratamientos"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Guardar Seguimiento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                </div>
+            </div>
+        </div>
+    
+        
+    </main>
+
+
+</body>
+
+<script>
+    function toggleSidebar() {
+        document.body.classList.toggle('collapsed');
+    }
+
+  
+</script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+ <!-- Bootstrap JS -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ <script>
+    // Seleccionar todos los enlaces que activan los submenús
+    const collapseLinks = document.querySelectorAll('[data-bs-toggle="collapse"]');
+
+    collapseLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Obtener el ID del submenú que se va a mostrar/ocultar
+            const targetId = this.getAttribute('data-bs-target');
+
+            // Cerrar todos los submenús
+            document.querySelectorAll('.collapse').forEach(collapse => {
+                if (collapse.id !== targetId) {
+                    // Si el submenú no es el que se clicó, se cierra
+                    collapse.classList.remove('show');
+                }
+            });
+        });
+    });
+</script>
+
+
+</html>

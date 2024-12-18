@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObstetricaPro | Sistema Integral de Gestión</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Pro -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+     <!-- Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@200;300;400;500;600;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Chart.js para visualizaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FullCalendar CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/es.global.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/main.min.css" rel="stylesheet">
+    <!-- Estilos CSS -->
+   <link rel="stylesheet" href="../../assets/estilos.css">
+    </head>
+</head>
+<body>
+    
+<!-- Sidebar -->
+<div class="sidebar">
+    
+    <nav class="sidebar-nav">
+        <ul class="nav flex-column">
+            <li class="nav-section">
+                <span class="section-title">Principal</span>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../index.html"><i class="fas fa-home"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionCitas">
+                        <i class="fas fa-calendar-check"></i> Gestión de Citas
+                        <i class="fas fa-chevron-down ml-auto"></i>
+                    </a>
+                    <div id="gestionCitas" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/citas/agendar-citas.html">
+                                    <i class="fa-solid fa-caret-right"></i> Crear Cita
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/citas/lista-citas.html">
+                                    <i class="fa-solid fa-caret-right"></i> Listado de Citas
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#gestionHistorial">
+                        <i class="fas fa-file-medical"></i> Historial Médico
+                        <i class="fas fa-chevron-down ml-auto"></i>
+                    </a>
+                    <div id="gestionHistorial" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/historial-paciente/historial.html">
+                                    <i class="fa-solid fa-caret-right"></i> Crear Historial
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/historial-paciente/lista-historial.html">
+                                    <i class="fa-solid fa-caret-right"></i> Listado de Historiales
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target="#gestionPacientes">
+                        <i class="fas fa-users"></i> Gestión Pacientes
+                        <i class="fas fa-chevron-down ml-auto"></i>
+                    </a>
+                    <div id="gestionPacientes" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/pacientes/agregar-pacientes.html">
+                                    <i class="fa-solid fa-caret-right"></i> Agregar Paciente
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../Interfaz/pacientes/lista-clientes.html">
+                                    <i class="fa-solid fa-caret-right"></i> Listado de Pacientes
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </li>
+            <li class="nav-section">
+                <span class="section-title">Opciones</span>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-cogs"></i> Configuración</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </li>
+            </li>
+        </ul>
+    </nav>
+    
+        
+    <div class="sidebar-footer">
+        <a href="#">© 2024 ObstetricaPro</a>
+    </div>
+</div>
+
+    <!-- Header -->
+    <header class="header">
+        <i class="fas fa-bars hamburger" onclick="toggleSidebar()"></i>
+        <div class="header-logo">
+            <img src="../../img/logoobtetricia (1).png" width="60" alt="">
+            <div>
+                <span class="header-text">De Mujer A Mujer</span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center w-100">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="search" class="search-input" placeholder="Buscar pacientes, citas, historiales...">
+            </div>
+            <div class="quick-action ms-2">
+                <a href="../../Interfaz/pacientes/agregar-pacientes.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoPacienteModal">
+                    <i class="fas fa-plus-circle"></i> Nuevo Paciente
+                </a>
+            </div>
+            
+            <div class="quick-action ms-2">
+                <a href="../../Interfaz/citas/agendar-citas.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaCitaModal">
+                    <i class="fas fa-plus-circle"></i> Nueva Cita
+                </a>
+            </div>
+            
+            <div class="quick-action ms-2">
+                <a href="../../Interfaz/historial-paciente/historial.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoHistorialModal">
+                    <i class="fas fa-plus-circle"></i> Nuevo Historial
+                </a>
+            </div>
+           
+            <div class="header-actions d-flex align-items-center">
+                <div class="notifications me-3 position-relative">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="https://static.vecteezy.com/system/resources/previews/009/267/561/non_2x/user-icon-design-free-png.png" width="50" class="rounded-circle" alt="Usuario">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+ 
+  
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="card dashboard-card-advanced no-hover">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0"><i class="fas fa-user-plus"></i> Agregar Paciente</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Formulario para Agregar Paciente -->
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" placeholder="Apellidos del paciente" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" class="form-control" placeholder="Nombres del paciente" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cédula</label>
+                            <input type="text" class="form-control" placeholder="Cédula del paciente" required>
+                        </div>
+                    </div>
+    
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Edad</label>
+                            <input type="number" class="form-control" placeholder="Edad del paciente" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" class="form-control" placeholder="Dirección del paciente" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Instrucción</label>
+                            <input type="text" class="form-control" placeholder="Nivel de instrucción del paciente" required>
+                        </div>
+                    </div>
+    
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Teléfono Celular</label>
+                            <input type="text" class="form-control" placeholder="Teléfono celular del paciente" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tipo de Sangre</label>
+                            <select class="form-select" required>
+                                <option value="" disabled selected>Selecciona el tipo de sangre</option>
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <!-- Botones de Acción -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="fas fa-save"></i> Guardar Paciente
+                            </button>
+                            <button type="button" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    
+    
+</body>
+
+<script>
+    function toggleSidebar() {
+        document.body.classList.toggle('collapsed');
+    }
+
+  
+</script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+ <!-- Bootstrap JS -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+ <script>
+    // Seleccionar todos los enlaces que activan los submenús
+    const collapseLinks = document.querySelectorAll('[data-bs-toggle="collapse"]');
+
+    collapseLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Obtener el ID del submenú que se va a mostrar/ocultar
+            const targetId = this.getAttribute('data-bs-target');
+
+            // Cerrar todos los submenús
+            document.querySelectorAll('.collapse').forEach(collapse => {
+                if (collapse.id !== targetId) {
+                    // Si el submenú no es el que se clicó, se cierra
+                    collapse.classList.remove('show');
+                }
+            });
+        });
+    });
+</script>
+
+</html>
